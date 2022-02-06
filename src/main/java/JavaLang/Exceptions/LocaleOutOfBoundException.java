@@ -22,8 +22,8 @@
 
 package JavaLang.Exceptions;
 
-public class KeyNotFoundException extends Exception{
-    public KeyNotFoundException(String message){
+public class LocaleOutOfBoundException extends Exception {
+    public LocaleOutOfBoundException(String message){
         super(message);
     }
 }

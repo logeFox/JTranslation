@@ -22,8 +22,8 @@
 
 package JavaLang.Exceptions;
 
-public class KeyNotFoundException extends Exception{
-    public KeyNotFoundException(String message){
+public class UnequalJsonKeysException extends Exception {
+    public UnequalJsonKeysException(String message){
         super(message);
     }
 }

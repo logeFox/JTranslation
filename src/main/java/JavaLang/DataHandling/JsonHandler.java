@@ -1,3 +1,25 @@
+//    MIT License
+//
+//    Copyright (c) 2021 Alessandro <https://github.com/logeFox>
+//
+//    Permission is hereby granted, free of charge, to any person obtaining a copy
+//    of this software and associated documentation files (the "Software"), to deal
+//    in the Software without restriction, including without limitation the rights
+//    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//    copies of the Software, and to permit persons to whom the Software is
+//    furnished to do so, subject to the following conditions:
+//
+//    The above copyright notice and this permission notice shall be included in all
+//    copies or substantial portions of the Software.
+//
+//    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//    SOFTWARE.
+
 package JavaLang.DataHandling;
 
 import JavaLang.Exceptions.JsonNotFoundException;
@@ -11,10 +33,12 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Scanner;
 
+// TODO --- Upgrade JsonHandler
+
 public class JsonHandler {
     private final String resourcePath;
 
-    public JsonHandler(String root, Languages locale) {
+    public JsonHandler(String root, String locale) {
         this.resourcePath = new StringBuilder()
             .append("/").append(root)
             .append("/").append(locale.toString())
@@ -22,7 +46,7 @@ public class JsonHandler {
             .toString();
     }
 
-    public JsonHandler(String path) {
+    protected JsonHandler(String path) {
         this.resourcePath = new StringBuilder()
             .append("/")
             .append(path).toString();

@@ -20,10 +20,38 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-package JavaLang.Exceptions;
+package JavaLang;
 
-public class KeyNotFoundException extends Exception{
-    public KeyNotFoundException(String message){
-        super(message);
+import JavaLang.DataHandling.Languages;
+import lombok.NonNull;
+import lombok.SneakyThrows;
+
+import java.util.Arrays;
+
+public class JavaLangBuilder {
+    private String root = "translations";
+    private final String[] locales;
+
+    @SneakyThrows
+    public JavaLangBuilder(@NonNull String... locales) {
+        for (String locale : locales) {
+            JavaLang.checkLocaleValidity(locale);
+        }
+
+        this.locales = locales;
+    }
+
+    public JavaLangBuilder(@NonNull Languages... locales) {
+        this.locales = Arrays.stream(locales).map(Languages::name).toArray(String[]::new);
+    }
+
+    public JavaLangBuilder setRoot(String root) {
+        this.root = root;
+        return this;
+    }
+
+    @SneakyThrows
+    public JavaLang build() {
+        return new JavaLang(root, locales);
     }
 }
