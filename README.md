@@ -45,7 +45,7 @@ To access **JavaLang** integrate the Java SDK into your project.
 	<dependency>
 		<groupId>com.github.logeFox</groupId>
 		<artifactId>JavaLang</artifactId>
-		<version>1.0</version>
+		<version>1.1</version>
 	</dependency>
 	```
 - For *Gradle* Add the JitPack repository in your root `build.gradle` at the end of repositories, and add the dependency as shown:
@@ -68,7 +68,7 @@ To start using **JavaLang**, we need to create the translation files and then ac
 
 ### Setup the Translation Files
 1. To start with, you need to create the *root directory* for containing the translation files, its place in the `Resources Folders` of the java project.
-2. Create the translation files in the *root directory* created earlier, with the file name as the supported languages (such as `en_US.json`, `en_IT.json`, etc). You can check the available languages [here](https://logefox.github.io/JavaLang/Languages). 
+2. Create the translation files in the *root directory* created earlier, with the file name as the supported languages (such as `en_US.json`, `it_IT.json`, etc). You can check the available languages [here](https://logefox.github.io/JavaLang/Languages). 
 	Below is an example of how to create the translation file containment structure
 	```
 	Resources
@@ -76,7 +76,7 @@ To start using **JavaLang**, we need to create the translation files and then ac
 			├─ it_IT.json
 			└─ en_US.json
 	```
-1. Add sentences and translations to the translation files as shown below:
+3. Add sentences and translations to the translation files as shown below:
 	```json
 	{
 		"hello": "Ciao!",
@@ -90,40 +90,53 @@ To start using **JavaLang**, we need to create the translation files and then ac
 		"introduceMySelf": "Pleased to meet you, I am {}."
 	}
 	```
+**note:** Javalang has a system of checking the *JSON keys*, when they are loaded to avoid errors in the use of different translation files via `#getLang()` or `#getLangWithLocale()`, the keys are *checked* for the ***same compatibility***.
 
 ## Instantiating and using JavaLang
 For more informations and examples read the [Documentation](https://logefox.github.io/JavaLang/WorkInProgressJavaLang).
 
 ### Make Istance
-To create an instance of JavaLang, you will need to indicate the _root folder_ in the resources, and indicate the language via the *Languages enumerator* or *String*.
+To create an instance of JavaLang, you must point to the _root directory_ in the resources using the `#setRoot()` in the `JavaLangBuilder`, if your *root directory* is called "translations" you don't need to point to it, but you must point to the language using either the *Languages* enumerator or the *Strings* in the `JavaLangBuilder()` constructor.
+
 ```java
-JavaLang javalang = new JavaLang("translations", Languages.it_IT);
+JavaLang javalang = new JavaLangBuilder(Languages.it_IT, Languages.en_US).build();
 ```
 
  ### Basic usage
-To access the phrases simply use the `JavaLang.getLang()` function with its corresponding key.
- ```java
-JavaLang javalang = new JavaLang("translations", Languages.it_IT);  
+To access the phrases just use the `JavaLang#getLang()` function with its corresponding key, if *multiple locales* are loaded with this method only the translations of the **first language** loaded will be taken.
+
+```java
 javalang.getLang("hello"); // Output: Ciao!
 ```
- 
-If you want to load a new locale, you can use the `JavaLang.reload()` function with the language enumerator or string name of the language you want.
-```java
-JavaLang javalang = new JavaLang("translations", Languages.it_IT);  
 
+If I want to select the locale to get the translations from, I can use the `#getLangWithLocale()` method.
+
+```java
+javalang.getLangWithLocale("en_US", "hello"); // Output: Hello!
+```
+ 
+If you want to load new locales, you can use the `JavaLang#reload()` function with the language enumerator or string name of the language you want.
+
+```java
 javalang.reload(Languages.en_US);
 
 javalang.getLang("hello"); // Output: Hello!
 ```
 
-**Hot reload** this functionality allows the translation file to be modified in real time and by executing the `JavaLang.reload()` function the new values can be accessed without restarting the current application. Although limited, this functionality is still in WIP.
+**Hot reload** this functionality allows the translation file to be modified in real time and by executing the `JavaLang#reload()` function the new values can be accessed without restarting the current application.
+
+#### Remove locale
+To remove locales, the `#removeLocale()` method is available, which will also perform a `reload` after the removal.
+
+```java
+javalang.removeLocale("en_US");
+```
 
 ### Interpolation usage
 To implement text within translations, it will only be necessary to *pass arguments* in the order of the specific fields for text input, which is represented by the character sequence `{}`.
-There are no limits in passing data to the `JavaLang.getLang("key", ...)` function, only the need to have the same amount of data and `{}`.
-```java
-JavaLang javalang = new JavaLang("translations", Languages.it_IT);  
-javalang.getLang("intorduceMySelf", "loge"); // Output: Piacere mi presento, sono loge.
+There are no limits in passing data to the `JavaLang#getLang("key", ...)` function, only the need to have the same amount of data and `{}`.
+```java 
+javalang.getLang("intorduceMySelf", "Ale"); // Output: Piacere mi presento, sono Ale.
 ```
 
 ### Emoji usage
@@ -137,7 +150,8 @@ The next example shows how to use the JavaLang integrated system.
 ```
 
  ```java
-JavaLang javalang = new JavaLang("translations", Languages.it_IT);  
+JavaLang javalang = new JavaLangBuilder(Languages.it_IT).build();
+
 javalang.getLang("hello"); 
 // Output in UTF-8: 			Ciao! 👋
 // Output in classic console:   Ciao! \U0001f44b
@@ -145,14 +159,14 @@ javalang.getLang("hello");
 
 If you want to use emoji from a particular service such as **Discord**, the system will not take into consideration emoji that do not follow the format explained above, allowing the target application to process the emoji code.
 The next example is applied for a possible application for Discord.
+
  ```json
 {
 	"hello": "Ciao! :wave:"
 }
 ```
 
- ```java
-JavaLang javalang = new JavaLang("translations", Languages.it_IT);  
+ ```java  
 javalang.getLang("hello"); // Output in classic console: Ciao! :wave:
 ```
 
