@@ -24,7 +24,7 @@ It is very **important** to know that this software does not have any automatic 
 
 ## Features
 - Support for 135 languages. [All languages available](https://github.com/logeFox/JTranslation/blob/master/languages.md)
-- Emoji support based on **emojipedia**, check [here](#Emoji usage) to see how to implement it
+- Emoji support based on **emojipedia**, check [here](#emoji-usage) to see how to implement it
 - Translations storage based on **JSON** files
 
 ## Installation of Dependencies
