@@ -23,8 +23,8 @@ JTranslation or Java **Language** is a text manager, with the aim of improving t
 It is very **important** to know that this software does not have any automatic translation system (like google translate), but simply *manages access* to text using **unique** keys.
 
 ## Features
-- Support for 135 languages. [All languages available](https://logefox.github.io/JTranslation/Languages)
-- Emoji support based on **emojipedia**, check [here](https://logefox.github.io/JTranslation/WorkInProgressJTranslation) to see how to implement it
+- Support for 135 languages. [All languages available](https://github.com/logeFox/JTranslation/blob/master/languages.md)
+- Emoji support based on **emojipedia**, check [here](#Emoji usage) to see how to implement it
 - Translations storage based on **JSON** files
 
 ## Installation of Dependencies
