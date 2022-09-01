@@ -19,11 +19,11 @@ _A simple i18n Text Handler_
 
 
 ## About JTranslation
-JTranslation or Java **Language** is a text manager, with the aim of improving the developer's *experience* for cleaner code, and for the translator to *manage* translations in a single place and in better order.
-It is very **important** to know that this software does not have any automatic translation system (like google translate), but simply *manages access* to text using **unique** keys.
+JTranslation is a text manager, with the aim of improving the developer's experience for cleaner code, and for the translator to *manage* translations in a single place and in better order.
+It is very **important** to know that this library does not have a machine translation system (like google translate), but simply *manages access* to the text using **unique** keys.
 
 ## Features
-- Support for 135 languages. [All languages available](https://github.com/logeFox/JTranslation/blob/master/languages.md)
+- Support for 135 languages. [All languages available](https://github.com/logeFox/JTranslation/blob/master/LANGUAGES.md)
 - Emoji support based on **emojipedia**, check [here](#emoji-usage) to see how to implement it
 - Translations storage based on **JSON** files
 
