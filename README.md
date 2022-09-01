@@ -1,3 +1,4 @@
+<img src="https://raw.githubusercontent.com/logeFox/JTranslation/master/img/jtranslation.png" width="160" align="right">
 
 <div align="center">
 
