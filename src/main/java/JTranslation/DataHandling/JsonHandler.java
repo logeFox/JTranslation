@@ -20,11 +20,12 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-package JavaLang.DataHandling;
+package JTranslation.DataHandling;
 
-import JavaLang.Exceptions.JsonNotFoundException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import JTranslation.Exceptions.JsonNotFoundException;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 
@@ -33,7 +34,6 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Scanner;
 
-// TODO --- Upgrade JsonHandler
 
 public class JsonHandler {
     private final String resourcePath;
@@ -77,16 +77,17 @@ public class JsonHandler {
 
         while (scanner.hasNext()) output.append(scanner.nextLine());
 
+        scanner.close();
         return output.toString();
     }
 
     private void checkJsonExistence(InputStream json) throws JsonNotFoundException {
         if (json == null) throw new JsonNotFoundException(
             new StringBuilder()
-                    .append("No locale Json file was found at the path: \"")
-                    .append(resourcePath)
-                    .append("\" in resources folder!\nCheck the root and locale name matching")
-                    .toString()
+                .append("No locale Json file was found at the path: \"")
+                .append(resourcePath)
+                .append("\" in resources folder!\nCheck the root and locale name matching")
+                .toString()
         );
     }
 }

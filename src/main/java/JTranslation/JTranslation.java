@@ -1,51 +1,27 @@
-//    MIT License
-//
-//    Copyright (c) 2021 Alessandro <https://github.com/logeFox>
-//
-//    Permission is hereby granted, free of charge, to any person obtaining a copy
-//    of this software and associated documentation files (the "Software"), to deal
-//    in the Software without restriction, including without limitation the rights
-//    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//    copies of the Software, and to permit persons to whom the Software is
-//    furnished to do so, subject to the following conditions:
-//
-//    The above copyright notice and this permission notice shall be included in all
-//    copies or substantial portions of the Software.
-//
-//    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//    SOFTWARE.
-
-package JavaLang;
-
-import JavaLang.DataHandling.Container;
-import JavaLang.DataHandling.Emojis;
-import JavaLang.DataHandling.JsonHandler;
-import JavaLang.DataHandling.Languages;
-import JavaLang.Exceptions.*;
-import JavaLang.ValidityController.Regex;
-import JavaLang.ValidityController.RegexSupervisor;
+package JTranslation;
 
 import lombok.NonNull;
 import lombok.SneakyThrows;
 
 import java.util.*;
 
-// TODO --- Add Local Documentation
-// TODO --- Add Local Commented Documentation
+import JTranslation.DataHandling.Container;
+import JTranslation.DataHandling.Emojis;
+import JTranslation.DataHandling.JsonHandler;
+import JTranslation.DataHandling.Languages;
+import JTranslation.Exceptions.*;
+import JTranslation.ValidityController.Regex;
+import JTranslation.ValidityController.RegexSupervisor;
 
-public class JavaLang {
-    //    New version of JavaLanguage i18n manager
+
+public class JTranslation {
+    // New version of JTranslation i18n manager
 
     private final String root;
     private Map<String, Container> languagesContainers = null;
 
     @SneakyThrows
-    protected JavaLang(String path) {
+    protected JTranslation(String path) {
         ArrayList<String> processedRoute = new RegexSupervisor(Regex.PATH_DISASSEMBLER, path).matchingList();
 
         checkRouteValidity(processedRoute, path);
@@ -57,7 +33,7 @@ public class JavaLang {
     }
 
     @SneakyThrows
-    protected JavaLang(String root, String[] locales) {
+    protected JTranslation(String root, String[] locales) {
         this.root = root;
 
         load(locales);
@@ -99,8 +75,8 @@ public class JavaLang {
 
         for (String locale : locales) {
             languagesContainers.put(
-                    locale,
-                    new JsonHandler(root, locale).getContainerFromJson()
+                locale,
+                new JsonHandler(root, locale).getContainerFromJson()
             );
         }
 
@@ -114,9 +90,9 @@ public class JavaLang {
         checkKeyExistence(locale, key);
 
         return replaceTextLabels(
-                locale,
-                key,
-                args
+            locale,
+            key,
+            args
         );
     }
 
@@ -126,9 +102,9 @@ public class JavaLang {
         checkKeyExistence(locale, key);
 
         return replaceTextLabels(
-                locale,
-                key,
-                args
+            locale,
+            key,
+            args
         );
     }
 
@@ -142,8 +118,8 @@ public class JavaLang {
 
             for (String key : languageChain.keySet()) {
                 languageChain.replace(
-                        key,
-                        replaceEmoji(regexSupervisor, languageChain.get(key), key, language.getKey())
+                    key,
+                    replaceEmoji(regexSupervisor, languageChain.get(key), key, language.getKey())
                 );
             }
         }
@@ -208,12 +184,12 @@ public class JavaLang {
     private void checkKeyExistence(String locale, String key) throws KeyNotFoundException {
         if (!languagesContainers.get(locale).getContainer().containsKey(key)) throw new KeyNotFoundException(
                 new StringBuilder()
-                        .append("No key corresponding to \"")
-                        .append(key)
-                        .append("\" found on the loaded locale \"")
-                        .append(locale)
-                        .append("\"")
-                        .toString()
+                    .append("No key corresponding to \"")
+                    .append(key)
+                    .append("\" found on the loaded locale \"")
+                    .append(locale)
+                    .append("\"")
+                    .toString()
         );
     }
 
@@ -235,30 +211,30 @@ public class JavaLang {
     private void checkLocaleExistence(String locale) throws LocaleNotAvailableInContainerException {
         if (!languagesContainers.containsKey(locale)) throw new LocaleNotAvailableInContainerException(
                 new StringBuilder()
-                        .append("Unable to remove the locale as it is not in the loaded containers: ")
-                        .append(locale)
-                        .toString()
+                    .append("Unable to remove the locale as it is not in the loaded containers: ")
+                    .append(locale)
+                    .toString()
         );
     }
 
     private void checkLocaleBound(int localeLength) throws LocaleOutOfBoundException {
         if (localeLength >= languagesContainers.size()) throw new LocaleOutOfBoundException(
-                "You cannot remove more locales than are loaded"
+            "You cannot remove more locales than are loaded"
         );
     }
 
     private void checkJsonEquity() throws UnequalJsonKeysException, GeneralUnknownException {
         // Method to check if all jsons have the same keys
         if (languagesContainers.isEmpty()) throw new GeneralUnknownException(
-                "An unknown error was encountered during execution. Error code E01"
+            "An unknown error was encountered during execution. Error code E01"
         );
         Container compassContainer = languagesContainers.values().stream().findFirst().get();
 
         for (Container container : languagesContainers.values()) {
             if (!compassContainer.getContainer().keySet().equals(container.getContainer().keySet())) {
                 throw new UnequalJsonKeysException(
-                            "The json keys are not the same in the loaded locales, check that all jsons have the same keys!"
-                    );
+                    "The json keys are not the same in the loaded locales, check that all jsons have the same keys!"
+                );
             }
         }
     }
