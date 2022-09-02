@@ -5,7 +5,7 @@
 ## JTranslation
 _A simple i18n Text Handler_
 
-[![](https://jitpack.io/v/logeFox/JavaLang.svg)](https://jitpack.io/#logeFox/JavaLang) ![GitHub](https://img.shields.io/github/license/logeFox/JTranslation)
+[![](https://jitpack.io/v/logeFox/JTranslation.svg)](https://jitpack.io/#logeFox/JTranslation) ![GitHub](https://img.shields.io/github/license/logeFox/JTranslation)
 </div>
 
 ## Index
@@ -44,7 +44,7 @@ To access **JTranslation** integrate the Java SDK into your project.
 	<dependency>
 		<groupId>com.github.logeFox</groupId>
 		<artifactId>JTranslation</artifactId>
-		<version>1.1</version>
+		<version>2</version>
 	</dependency>
 	```
 - For *Gradle* Add the JitPack repository in your root `build.gradle` at the end of repositories, and add the dependency as shown:
@@ -58,7 +58,7 @@ To access **JTranslation** integrate the Java SDK into your project.
 	```
 	```groovy
 	dependencies {
-			implementation 'com.github.logeFox:JTranslation:1.0'
+		implementation 'com.github.logeFox:JTranslation:2'
 	}
 	```
 
