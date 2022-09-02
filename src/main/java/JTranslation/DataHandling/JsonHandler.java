@@ -35,6 +35,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 
+// make a class to handle json files
+
+
 public class JsonHandler {
     private final String resourcePath;
 
@@ -56,8 +59,8 @@ public class JsonHandler {
     public Container getContainerFromJson() {
         String json = getJson();
 
-        Type containerType = new TypeToken<HashMap<String, String>>(){}.getType();
-        HashMap<String, String> objectJson = new Gson().fromJson(json, containerType);
+        Type type = new TypeToken<HashMap<String, String>>() {}.getType();
+        HashMap<String, String> objectJson = new Gson().fromJson(json, type);
 
         return new Container(objectJson);
     }
